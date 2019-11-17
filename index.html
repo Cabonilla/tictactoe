@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="header">
+        <h2 id="play">> Play Tic Tac Toe?</button>
+            <div class="game-choice">
+                <button id="si" onclick="game.yesGame()">Yes!</button>
+                <button id="no" onclick="game.noGame()">No.</button>
+            </div>
+    </div>
+    <div class="game" id="game">
+        <div class="player-form">
+            <input type="text" name="p1" id="p1" placeholder="P1 NAME" maxlength="8" />
+            <p>VS.</p>
+            <input type="text" name="p2" id="p2" placeholder="P2 NAME" maxlength="8" />
+        </div>
+        <div class="score">
+            <div class="p1_params">
+                <p class="p1_name">P1</p>
+                <p class="p1_score">0</p>
+            </div>
+            <div class="p2_params">
+                <p class="p2_name">P2</p>
+                <p class="p2_score">0</p>
+            </div>
+        </div>
+        <div id="board" class="tictactoe">
+            <div class="gameBoard">
+                <div data-id="0" class="cell"></div>
+                <div data-id="1" class="cell"></div>
+                <div data-id="2" class="cell"></div>
+                <div data-id="3" class="cell"></div>
+                <div data-id="4" class="cell"></div>
+                <div data-id="5" class="cell"></div>
+                <div data-id="6" class="cell"></div>
+                <div data-id="7" class="cell"></div>
+                <div data-id="8" class="cell"></div>
+            </div>
+        </div>
+    </div>
+    <script src="js.js"></script>
+</body>
+
+</html>

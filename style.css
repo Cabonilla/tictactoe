@@ -1,0 +1,121 @@
+body {
+    font-family: 'Press Start 2P', cursive;
+    letter-spacing: 0.05em;
+    filter: invert(100%);
+    background: black;
+}
+
+h2 {
+    font-size: 2em;
+    cursor: default;
+}
+
+#game {
+    display: none;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    margin-top: 2vh;
+}
+
+.header .game-choice {
+    margin-top: 3vh;
+    display: flex;
+    justify-content: space-around;
+}
+
+.header .game-choice button {
+    border: none;
+    background: none;
+    font-family: 'Press Start 2P', cursive;
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 0;
+}
+
+.gameBoard {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.gameBoard div {
+    height: 20vh;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameBoard #a1, .gameBoard #b1, .gameBoard #c1,
+.gameBoard #a2, .gameBoard #b2, .gameBoard #c2 {
+    border-bottom: solid 0.9em black;
+}
+
+.gameBoard #b1, .gameBoard #b2, .gameBoard #b3,
+.gameBoard #c1, .gameBoard #c2, .gameBoard #c3 {
+    border-left: solid 0.9em black;
+}
+
+.gameBoard .board_header {
+    height: 5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+}
+
+.gameBoard .board_header p {
+    margin-top: 0;
+}
+
+.gameBoard .board_header h3 {
+    margin-bottom: 1vh;
+}
+
+.tictactoe {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+.player-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-form input {
+    border: none;
+    width: 30vw;
+}
+
+.player-form input[type="text"] {
+    font-size: 2em;
+    text-align: center;
+    font-family: "Press Start 2P"
+}
+
+.player-form input:focus {
+    outline: 0;
+}
+
+.score {
+    display: flex;
+    justify-content: space-around;
+}
+
+.score div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 2em;
+}
+
+.score .p1_score, .score .p2_score {
+    margin: 0;
+}
