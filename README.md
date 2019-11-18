@@ -10,5 +10,6 @@ A Web 1.0 Tic-Tac-Toe game for the Odin Project. Pretty simple app using largely
 * Design patterns, period. 
 * CSS art direction, rather than desperate placement. 
 * Dynamic DOM elements. 
+* Scope management. 
 
 
