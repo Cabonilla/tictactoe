@@ -11,8 +11,8 @@ const game = (() => {
     };
 
     const yesGame = () => {
-        var game = document.getElementById("game");
-        game.style.display = "block";
+        // var game = document.getElementById("game");
+        // game.style.display = "block";
 
         let board = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
@@ -113,13 +113,13 @@ const game = (() => {
 
         const makeChip = playerValue => {
             const chip = document.createElement("div");
-            switch(playerValue) {
+            switch (playerValue) {
                 case 1:
                     chip.classList.add("player-one");
                     chip.textContent = "X";
                     return chip;
                     break;
-                case 2: 
+                case 2:
                     chip.classList.add("player-two");
                     chip.textContent = "0";
                     return chip;
@@ -133,6 +133,52 @@ const game = (() => {
                 $(`div[data-id='${index}']`).appendChild(makeChip(cell));
         });
     };
+
+    const gameController = (() => {
+    
+    const makePlay = cell => {
+        game.makePlay(cell, getPlayerTurn());
+        renderBoard();
+        if (game.checkForWinner() !== 0) {
+            if (game.checkForWinner() === 3) {
+                $(".result").style.display = "block";
+                $(".result").textContent = "TIE GAME";
+                $(".action-container").removeChild($(".action-container").firstChild);
+                $(".action-container").insertBefore(
+                    getActionButton("PLAY AGAIN"),
+                    $(".action-container").firstChild
+                );
+            } else {
+                let winnerName;
+                game.checkForWinner() === 1
+                    ? (winnerName = match.getPlayerOneName())
+                    : (winnerName = match.getPlayerTwoName());
+                match.declareRoundWinner(game.checkForWinner());
+                $(".player-one-score").textContent = match.getPlayerOneScore();
+                $(".player-two-score").textContent = match.getPlayerTwoScore();
+                $(".result").style.display = "block";
+                $(".result").textContent = `${winnerName} WINS`;
+                Array.from($$(".cell")).forEach(cell => {
+                    cell.removeEventListener("click", makePlayEventHandler);
+                });
+                $(".action-container").removeChild($(".action-container").firstChild);
+                $(".action-container").insertBefore(
+                    getActionButton("play again"),
+                    $(".action-container").firstChild
+                );
+            }
+        }
+    };
+
+    const initialize = () => {
+        game.resetBoard();
+        renderBoard();
+        $(".action-container").appendChild(getActionButton("start"));
+    };
+
+    return {initialize, makePlay};
+})();
+
 
     return { noGame, yesGame };
 })();
