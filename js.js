@@ -1,7 +1,10 @@
+//The following variables allow for query searching throughout our document. 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
 const game = (() => {
+    /* Provide every board slot with a value of 0 or 1, 
+    activated or not. */
     let board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     const getBoard = () => board;
@@ -10,6 +13,11 @@ const game = (() => {
         board[cell] = playerNumber;
     };
 
+    /*Rows are checked using data values.
+    0 | 1 | 2
+    3 | 4 | 5
+    6 | 7 | 8
+    */
     const checkRows = () => {
         if (board[0] === board[1] && board[0] === board[2]) {
             return board[0];
@@ -46,7 +54,7 @@ const game = (() => {
 
     /* Returns the number of the player that has won the game,
     3 if the game is a tie or
-    0 if the game is still in progress*/
+    0 if the game is still in progress.*/
     const checkForWinner = () => {
         if (checkRows() !== 0 || checkColumns() !== 0 || checkDiagonals() !== 0) {
             return checkRows() + checkColumns() + checkDiagonals();
@@ -62,14 +70,18 @@ const game = (() => {
     return { getBoard, makePlay, checkForWinner, resetBoard };
 })();
 
+//Basic parameters for Players. 
 const playerFactory = (number, name, score = 0) => {
     return { number, name, score };
 };
 
+//Basic parameters for matches using Module Pattern. 
 const match = (() => {
+    //Two Player setup
     let playerOne = playerFactory(1, "Player 1");
     let playerTwo = playerFactory(2, "Player 2");
 
+    //Name and score values, to update boards. 
     const getPlayerOneName = () => playerOne.name;
     const getPlayerTwoName = () => playerTwo.name;
     const getPlayerOneScore = () => playerOne.score;
@@ -95,7 +107,7 @@ const match = (() => {
 })();
 
 const renderBoard = () => {
-    //Clears the board
+    //Clears the board.
     game.getBoard().forEach((cell, index) => {
         if ($(`div[data-id='${index}']`).hasChildNodes())
             $(`div[data-id='${index}']`).removeChild(
@@ -103,6 +115,7 @@ const renderBoard = () => {
             );
     });
 
+    //Chips function as the X and O entries on our board. 
     const makeChip = playerValue => {
         const chip = document.createElement("div");
         switch (playerValue) {
@@ -126,6 +139,7 @@ const renderBoard = () => {
     });
 };
 
+//Controls turn-switching and in-game announcements. 
 const gameController = (() => {
     let playerTurn = 2;
     const getPlayerTurn = () => {
@@ -139,7 +153,7 @@ const gameController = (() => {
             if (game.checkForWinner() === 3) {
                 $(".result").style.display = "block";
                 $(".result").textContent = "Its a tie!";
-                //replaces reset button with play again
+                //Replaces reset button with play again. 
                 $(".action-container").removeChild($(".action-container").firstChild);
                 $(".action-container").insertBefore(
                     getActionButton("play again"),
@@ -150,9 +164,9 @@ const gameController = (() => {
                 game.checkForWinner() === 1
                     ? (winnerName = match.getPlayerOneName())
                     : (winnerName = match.getPlayerTwoName());
-                //Logs the result of the round
+                //Logs the result of the round.
                 match.declareRoundWinner(game.checkForWinner());
-                //Renders the result in the score-board
+                //Renders the result in the score-board.
                 $(".player-one-score").textContent = match.getPlayerOneScore();
                 $(".player-two-score").textContent = match.getPlayerTwoScore();
                 $(".result").style.display = "block";
@@ -162,7 +176,7 @@ const gameController = (() => {
                 Array.from($$(".cell")).forEach(cell => {
                     cell.removeEventListener("click", makePlayEventHandler);
                 });
-                //replaces reset button with play again
+                //Replaces reset button with play again. 
                 $(".action-container").removeChild($(".action-container").firstChild);
                 $(".action-container").insertBefore(
                     getActionButton("play again"),
@@ -180,10 +194,10 @@ const gameController = (() => {
 
     return { initialize, makePlay };
 })();
-
+//Creates the board and begins the game.
 gameController.initialize();
 
-//Event Handlers
+//Event Handlers, tying buttons to actions.
 function makePlayEventHandler(event) {
     if (!event.target.hasChildNodes())
         gameController.makePlay(event.target.dataset.id);
@@ -218,6 +232,7 @@ function resetEventHandler() {
     renderBoard();
 }
 
+//New round imposes new, empty values, rather than refreshing game. 
 function newRoundEventHandler() {
     game.resetBoard();
     renderBoard();
@@ -235,17 +250,15 @@ function newRoundEventHandler() {
 function newMatchEventHandler() {
     game.resetBoard();
     renderBoard();
-    //Clears the result in the score-board
-    //   $(".player-one-score").textContent = match.getPlayerOneScore();
-    //   $(".player-two-score").textContent = match.getPlayerTwoScore();
+    //Clears the result in the score-board.
     $(".player-one-score").textContent = "0";
     $(".player-two-score").textContent = "0";
     $(".result").style.display = "none";
     $(".result").textContent = "";
     $(".score").style.display = "none";
-    //Renders the player form
+    //Renders the player form.
     $(".player-form").style.display = "flex";
-    //Removes the buttons, renders a start button
+    //Removes the buttons, renders a start button.
     while ($(".action-container").hasChildNodes())
         $(".action-container").removeChild($(".action-container").firstChild);
     $(".action-container").appendChild(getActionButton("start"));
@@ -256,6 +269,7 @@ function newMatchEventHandler() {
     });
 }
 
+//Switch pattern provides click-events for available button options. 
 function getActionButton(action) {
     const button = document.createElement("button");
     switch (action) {
@@ -285,5 +299,6 @@ function getActionButton(action) {
         default:
             break;
     }
+    //Displays butttons for use. 
     return button;
 }
