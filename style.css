@@ -1,8 +1,23 @@
+:root {
+    --primary-color: #393e46;
+    --secondary-color: #eeeeee;
+    --font-color: #eeeeee;
+    --bg-color: #393e46;
+    --player-one-color: #99e1e5;
+    --player-two-color: #fbafaf;
+}
+
 body {
     font-family: 'Press Start 2P', cursive;
     letter-spacing: 0.05em;
     filter: invert(100%);
     background: black;
+}
+
+.game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h2 {
@@ -26,7 +41,7 @@ h2 {
     justify-content: space-around;
 }
 
-.header .game-choice button {
+.header .game-choice button, button {
     border: none;
     background: none;
     font-family: 'Press Start 2P', cursive;
@@ -48,13 +63,11 @@ h2 {
     align-items: center;
 }
 
-.gameBoard #a1, .gameBoard #b1, .gameBoard #c1,
-.gameBoard #a2, .gameBoard #b2, .gameBoard #c2 {
+.gameBoard #a1, .gameBoard #b1, .gameBoard #c1, .gameBoard #a2, .gameBoard #b2, .gameBoard #c2 {
     border-bottom: solid 0.9em black;
 }
 
-.gameBoard #b1, .gameBoard #b2, .gameBoard #b3,
-.gameBoard #c1, .gameBoard #c2, .gameBoard #c3 {
+.gameBoard #b1, .gameBoard #b2, .gameBoard #b3, .gameBoard #c1, .gameBoard #c2, .gameBoard #c3 {
     border-left: solid 0.9em black;
 }
 
@@ -118,4 +131,114 @@ h2 {
 
 .score .p1_score, .score .p2_score {
     margin: 0;
+}
+
+.board {
+    width: 30rem;
+    height: 30rem;
+    background-color: #000000;
+}
+
+.grid-container {
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    grid-gap: 5px;
+    height: 100%;
+    width: 100%;
+}
+
+.cell {
+    background-color: #fff;
+    font-weight: 900;
+    font-size: 4.5rem;
+    text-align: center;
+}
+
+.score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.score div:nth-child(3) {
+    flex-basis: 100%;
+}
+
+.score .player-one-board, .score .player-two-board {
+    margin: 0 1em 0 1em;
+}
+
+.score .player-one-board p, .score .player-two-board p {
+    margin: 0.5em 0 0.5em 0;
+}
+
+.action-container {
+    margin: 1em;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+}
+
+.action-container button {
+    font-size: 2em;
+    margin: 0em 3em 0 3em;
+    -webkit-animation: flickerAnimation 2s infinite;
+    -moz-animation: flickerAnimation 2s infinite;
+    -o-animation: flickerAnimation 2s infinite;
+    animation: flickerAnimation 2s infinite;
+}
+
+@keyframes flickerAnimation {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes flickerAnimation {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes flickerAnimation {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes flickerAnimation {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.grid-container .cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
